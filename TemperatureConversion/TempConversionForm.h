@@ -82,63 +82,69 @@ namespace TemperatureConversion {
 			// 
 			// FtoC
 			// 
+			this->FtoC->BackColor = System::Drawing::SystemColors::Menu;
 			this->FtoC->Location = System::Drawing::Point(34, 85);
 			this->FtoC->Name = L"FtoC";
 			this->FtoC->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->FtoC->Size = System::Drawing::Size(75, 23);
 			this->FtoC->TabIndex = 0;
 			this->FtoC->Text = L"F --> C";
-			this->FtoC->UseVisualStyleBackColor = true;
+			this->FtoC->UseVisualStyleBackColor = false;
 			this->FtoC->Click += gcnew System::EventHandler(this, &TempConversionForm::FtoC_Click);
 			// 
 			// button2
 			// 
+			this->button2->BackColor = System::Drawing::SystemColors::Menu;
 			this->button2->Location = System::Drawing::Point(175, 85);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"F --> K";
-			this->button2->UseVisualStyleBackColor = true;
+			this->button2->UseVisualStyleBackColor = false;
 			// 
 			// button3
 			// 
+			this->button3->BackColor = System::Drawing::SystemColors::Menu;
 			this->button3->Location = System::Drawing::Point(34, 131);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"C --> F";
-			this->button3->UseVisualStyleBackColor = true;
+			this->button3->UseVisualStyleBackColor = false;
 			// 
 			// button4
 			// 
+			this->button4->BackColor = System::Drawing::SystemColors::Menu;
 			this->button4->Location = System::Drawing::Point(175, 131);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(75, 23);
 			this->button4->TabIndex = 3;
 			this->button4->Text = L"C --> K";
-			this->button4->UseVisualStyleBackColor = true;
+			this->button4->UseVisualStyleBackColor = false;
 			// 
 			// button5
 			// 
+			this->button5->BackColor = System::Drawing::SystemColors::Menu;
 			this->button5->Location = System::Drawing::Point(34, 179);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(75, 23);
 			this->button5->TabIndex = 4;
 			this->button5->Text = L"K --> F";
-			this->button5->UseVisualStyleBackColor = true;
+			this->button5->UseVisualStyleBackColor = false;
 			// 
 			// button6
 			// 
+			this->button6->BackColor = System::Drawing::SystemColors::Menu;
 			this->button6->Location = System::Drawing::Point(175, 179);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(75, 23);
 			this->button6->TabIndex = 5;
 			this->button6->Text = L"K --> C";
-			this->button6->UseVisualStyleBackColor = true;
+			this->button6->UseVisualStyleBackColor = false;
 			// 
 			// InputBox
 			// 
-			this->InputBox->BackColor = System::Drawing::SystemColors::Menu;
+			this->InputBox->BackColor = System::Drawing::SystemColors::Window;
 			this->InputBox->Location = System::Drawing::Point(21, 32);
 			this->InputBox->Name = L"InputBox";
 			this->InputBox->Size = System::Drawing::Size(100, 20);
@@ -148,6 +154,7 @@ namespace TemperatureConversion {
 			// 
 			// OutputBox
 			// 
+			this->OutputBox->BackColor = System::Drawing::SystemColors::Window;
 			this->OutputBox->Location = System::Drawing::Point(163, 32);
 			this->OutputBox->Name = L"OutputBox";
 			this->OutputBox->Size = System::Drawing::Size(100, 20);
@@ -223,24 +230,45 @@ namespace TemperatureConversion {
 #pragma endregion
 
 		double num, result;
-		bool mode1, mode2;
+		bool mode1 = true;
+		bool mode2 = false;
 
 private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {  // F --> C
 
-	if (Double::TryParse(InputBox->Text, num)) {
+	if (mode1) {  // mode1
 
-		//num = System::Convert::ToDouble(InputBox->Text);
+		if (Double::TryParse(InputBox->Text, num)) {
 
-		result = (num - 32) * (static_cast<double>(5) / 9);
+			//num = System::Convert::ToDouble(InputBox->Text);
 
-		result = System::Math::Round(result, 3);
+			result = (num - 32) * (static_cast<double>(5) / 9);
 
-		OutputBox->Text = System::Convert::ToString(result) + "°C";
-		InputBox->Text += "°F";
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°C";
+			InputBox->Text += "°F";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
 	}
-	else {
-		InputBox->Text = "";
-		OutputBox->Text = "";
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = (num - 32) * (static_cast<double>(5) / 9);
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
 	}
 
 
@@ -257,6 +285,7 @@ private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {
 
 private: System::Void InputBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
+
 private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {  // Mode1 checkbox
 
 	if (Mode1Checkbox->Checked) {
