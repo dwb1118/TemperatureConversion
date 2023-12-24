@@ -532,7 +532,7 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 }
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {  // Clear button
 
 	InputBox->Text = "";
 	OutputBox->Text = "";
