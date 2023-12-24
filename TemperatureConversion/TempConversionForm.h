@@ -48,6 +48,9 @@ namespace TemperatureConversion {
 
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::CheckBox^ Mode1Checkbox;
+	private: System::Windows::Forms::CheckBox^ Mode2Checkbox;
+
 	protected:
 
 	private:
@@ -73,6 +76,8 @@ namespace TemperatureConversion {
 			this->OutputBox = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->Mode1Checkbox = (gcnew System::Windows::Forms::CheckBox());
+			this->Mode2Checkbox = (gcnew System::Windows::Forms::CheckBox());
 			this->SuspendLayout();
 			// 
 			// FtoC
@@ -167,12 +172,38 @@ namespace TemperatureConversion {
 			this->label2->TabIndex = 9;
 			this->label2->Text = L"Output";
 			// 
+			// Mode1Checkbox
+			// 
+			this->Mode1Checkbox->AutoSize = true;
+			this->Mode1Checkbox->Checked = true;
+			this->Mode1Checkbox->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->Mode1Checkbox->Location = System::Drawing::Point(109, 253);
+			this->Mode1Checkbox->Name = L"Mode1Checkbox";
+			this->Mode1Checkbox->Size = System::Drawing::Size(62, 17);
+			this->Mode1Checkbox->TabIndex = 10;
+			this->Mode1Checkbox->Text = L"Mode 1";
+			this->Mode1Checkbox->UseVisualStyleBackColor = true;
+			this->Mode1Checkbox->CheckedChanged += gcnew System::EventHandler(this, &TempConversionForm::checkBox1_CheckedChanged);
+			// 
+			// Mode2Checkbox
+			// 
+			this->Mode2Checkbox->AutoSize = true;
+			this->Mode2Checkbox->Location = System::Drawing::Point(109, 285);
+			this->Mode2Checkbox->Name = L"Mode2Checkbox";
+			this->Mode2Checkbox->Size = System::Drawing::Size(62, 17);
+			this->Mode2Checkbox->TabIndex = 11;
+			this->Mode2Checkbox->Text = L"Mode 2";
+			this->Mode2Checkbox->UseVisualStyleBackColor = true;
+			this->Mode2Checkbox->CheckedChanged += gcnew System::EventHandler(this, &TempConversionForm::Mode2Checkbox_CheckedChanged);
+			// 
 			// TempConversionForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->ClientSize = System::Drawing::Size(288, 391);
+			this->Controls->Add(this->Mode2Checkbox);
+			this->Controls->Add(this->Mode1Checkbox);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->OutputBox);
@@ -192,6 +223,7 @@ namespace TemperatureConversion {
 #pragma endregion
 
 		double num, result;
+		bool mode1, mode2;
 
 private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {  // F --> C
 
@@ -203,7 +235,8 @@ private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		result = System::Math::Round(result, 3);
 
-		OutputBox->Text = System::Convert::ToString(result);
+		OutputBox->Text = System::Convert::ToString(result) + "°C";
+		InputBox->Text += "°F";
 	}
 	else {
 		InputBox->Text = "";
@@ -223,6 +256,30 @@ private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
 private: System::Void InputBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {  // Mode1 checkbox
+
+	if (Mode1Checkbox->Checked) {
+		mode1 = true;
+		Mode2Checkbox->Checked = false;
+	}
+	else {
+		mode1 = false;
+		Mode2Checkbox->Checked = true;
+	}
+
+}
+
+private: System::Void Mode2Checkbox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {  // Mode2 checkbox
+	
+	if (Mode2Checkbox->Checked) {
+		mode2 = true;
+		Mode1Checkbox->Checked = false;
+	}
+	else {
+		mode2 = false;
+		Mode1Checkbox->Checked = true;
+	}
 }
 };
 }
