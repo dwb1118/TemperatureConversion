@@ -50,6 +50,7 @@ namespace TemperatureConversion {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::CheckBox^ Mode1Checkbox;
 	private: System::Windows::Forms::CheckBox^ Mode2Checkbox;
+	private: System::Windows::Forms::Button^ button1;
 
 	protected:
 
@@ -78,6 +79,7 @@ namespace TemperatureConversion {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->Mode1Checkbox = (gcnew System::Windows::Forms::CheckBox());
 			this->Mode2Checkbox = (gcnew System::Windows::Forms::CheckBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// FtoC
@@ -134,6 +136,7 @@ namespace TemperatureConversion {
 			this->button5->TabIndex = 4;
 			this->button5->Text = L"K --> F";
 			this->button5->UseVisualStyleBackColor = false;
+			this->button5->Click += gcnew System::EventHandler(this, &TempConversionForm::button5_Click);
 			// 
 			// button6
 			// 
@@ -144,6 +147,7 @@ namespace TemperatureConversion {
 			this->button6->TabIndex = 5;
 			this->button6->Text = L"K --> C";
 			this->button6->UseVisualStyleBackColor = false;
+			this->button6->Click += gcnew System::EventHandler(this, &TempConversionForm::button6_Click);
 			// 
 			// InputBox
 			// 
@@ -176,7 +180,7 @@ namespace TemperatureConversion {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(191, 16);
+			this->label2->Location = System::Drawing::Point(195, 16);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(39, 13);
 			this->label2->TabIndex = 9;
@@ -206,12 +210,23 @@ namespace TemperatureConversion {
 			this->Mode2Checkbox->UseVisualStyleBackColor = true;
 			this->Mode2Checkbox->CheckedChanged += gcnew System::EventHandler(this, &TempConversionForm::Mode2Checkbox_CheckedChanged);
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(67, 320);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(150, 23);
+			this->button1->TabIndex = 12;
+			this->button1->Text = L"Clear";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &TempConversionForm::button1_Click);
+			// 
 			// TempConversionForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->ClientSize = System::Drawing::Size(288, 391);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->Mode2Checkbox);
 			this->Controls->Add(this->Mode1Checkbox);
 			this->Controls->Add(this->label2);
@@ -224,6 +239,7 @@ namespace TemperatureConversion {
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->FtoC);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->Name = L"TempConversionForm";
 			this->Text = L"TempConversionForm";
 			this->ResumeLayout(false);
@@ -398,16 +414,129 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 			OutputBox->Text = "";
 		}
 	}
-
-
-
-
-
-
-
-
 }
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {  // C --> K
+
+	if (mode1) {  // mode1
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = num + 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°K";
+			InputBox->Text += "°C";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = num + 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+}
+private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {  // K --> F
+
+	if (mode1) {  // mode1
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = (num - 273.15) * 1.8 + 32;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°F";
+			InputBox->Text += "°K";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = (num - 273.15) * 1.8 + 32;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+
+}
+
+
+private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {  // K --> C
+
+	if (mode1) {  // mode1
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = num - 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°C";
+			InputBox->Text += "°K";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = num - 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	InputBox->Text = "";
+	OutputBox->Text = "";
+
 }
 };
 }
