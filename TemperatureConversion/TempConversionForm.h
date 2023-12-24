@@ -191,9 +191,25 @@ namespace TemperatureConversion {
 		}
 #pragma endregion
 
-		int num, result;
+		double num, result;
 
 private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {  // F --> C
+
+	if (Double::TryParse(InputBox->Text, num)) {
+
+		//num = System::Convert::ToDouble(InputBox->Text);
+
+		result = (num - 32) * (static_cast<double>(5) / 9);
+
+		result = System::Math::Round(result, 3);
+
+		OutputBox->Text = System::Convert::ToString(result);
+	}
+	else {
+		InputBox->Text = "";
+		OutputBox->Text = "";
+	}
+
 
 
 }
