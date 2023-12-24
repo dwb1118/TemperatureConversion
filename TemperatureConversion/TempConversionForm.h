@@ -101,6 +101,7 @@ namespace TemperatureConversion {
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"F --> K";
 			this->button2->UseVisualStyleBackColor = false;
+			this->button2->Click += gcnew System::EventHandler(this, &TempConversionForm::button2_Click);
 			// 
 			// button3
 			// 
@@ -111,6 +112,7 @@ namespace TemperatureConversion {
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"C --> F";
 			this->button3->UseVisualStyleBackColor = false;
+			this->button3->Click += gcnew System::EventHandler(this, &TempConversionForm::button3_Click);
 			// 
 			// button4
 			// 
@@ -121,6 +123,7 @@ namespace TemperatureConversion {
 			this->button4->TabIndex = 3;
 			this->button4->Text = L"C --> K";
 			this->button4->UseVisualStyleBackColor = false;
+			this->button4->Click += gcnew System::EventHandler(this, &TempConversionForm::button4_Click);
 			// 
 			// button5
 			// 
@@ -241,7 +244,7 @@ private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {
 
 			//num = System::Convert::ToDouble(InputBox->Text);
 
-			result = (num - 32) * (static_cast<double>(5) / 9);
+			result = (num - 32) / 1.8;
 
 			result = System::Math::Round(result, 3);
 
@@ -259,7 +262,7 @@ private: System::Void FtoC_Click(System::Object^ sender, System::EventArgs^ e) {
 
 			//num = System::Convert::ToDouble(InputBox->Text);
 
-			result = (num - 32) * (static_cast<double>(5) / 9);
+			result = (num - 32) / 1.8;
 
 			result = System::Math::Round(result, 3);
 
@@ -309,6 +312,102 @@ private: System::Void Mode2Checkbox_CheckedChanged(System::Object^ sender, Syste
 		mode2 = false;
 		Mode1Checkbox->Checked = true;
 	}
+}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {  // F-->K
+
+	if (mode1) {  // mode1
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = ((num - 32) / 1.8) + 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°K";
+			InputBox->Text += "°F";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = ((num - 32) / 1.8) + 273.15;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {  // C --> F
+
+	if (mode1) {  // mode1
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = (num * 1.8) + 32;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result) + "°F";
+			InputBox->Text += "°C";
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+	else {  // mode2
+
+		if (Double::TryParse(InputBox->Text, num)) {
+
+			//num = System::Convert::ToDouble(InputBox->Text);
+
+			result = (num * 1.8) + 32;
+
+			result = System::Math::Round(result, 3);
+
+			OutputBox->Text = System::Convert::ToString(result);
+		}
+		else {
+			InputBox->Text = "";
+			OutputBox->Text = "";
+		}
+	}
+
+
+
+
+
+
+
+
+}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {  // C --> K
 }
 };
 }
